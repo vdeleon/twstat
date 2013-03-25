@@ -2,10 +2,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Twitter Charts</title>
+  <title>Twitter Archive Stats</title>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.3/jqcloud-1.0.3.min.js"></script>
 
   <style type="text/css">
@@ -13,6 +12,19 @@
       background-color: #ffffff; 
       color: #000000;
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    table {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    caption {
+      caption-side: bottom;
     }
   </style>
   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.3/jqcloud.css" />
@@ -27,6 +39,7 @@
           var data = new google.visualization.DataTable();
           data.addColumn('date', 'Month');
           data.addColumn('number', 'Count');
+          data.addColumn({type:'string', role:'tooltip', p: {html: true}});
           data.addRows(month_data);
 
           // Create and draw the visualization.
@@ -35,8 +48,11 @@
                   title : "Tweets by Month",
                   width : 1200, 
                   height : 400,
-                  legend: {
+                  legend : {
                       position: 'none'
+                  },
+                  tooltip : {
+                      isHtml : true 
                   },
                   hAxis: {
                       gridlines: { 
@@ -58,6 +74,7 @@
           var data = new google.visualization.DataTable();
           data.addColumn('string', 'Day of Week');
           data.addColumn('number', 'Count');
+          data.addColumn({type:'string', role:'tooltip', p: {html: true}});
           data.addRows(dow_data);
 
           // Create and draw the visualization.
@@ -67,6 +84,9 @@
                   width : 600, 
                   height : 400,
                   legend: {position: 'none'},
+                  tooltip : {
+                      isHtml : true 
+                  },
                   hAxis: {
                       title: "Day of Week", 
                       gridlines:{ color: 'transparent'}
@@ -82,6 +102,7 @@
           var data = new google.visualization.DataTable();
           data.addColumn('number', 'Hour');
           data.addColumn('number', 'Count');
+          data.addColumn({type:'string', role:'tooltip', p: {html: true}});
           data.addRows(hour_data);
 
           // Create and draw the visualization.
@@ -91,6 +112,7 @@
                   width : 600, 
                   height : 400,
                   legend: {position: 'none'},
+                  tooltip: { isHtml: true },
                   hAxis: {
                       baselineColor: 'transparent',
                       title: 'Hour',
@@ -137,51 +159,51 @@
 	  "use strict";
 
           draw_by_month(
-              [ [new Date(2007, 1), 146],[new Date(2007, 2), 628],[new Date(2007, 3), 725],[new Date(2007, 4), 714],[new Date(2007, 5), 825],[new Date(2007, 6), 709],[new Date(2007, 7), 813],[new Date(2007, 8), 998],[new Date(2007, 9), 928],[new Date(2007, 10), 807],[new Date(2007, 11), 539],[new Date(2008, 0), 953],[new Date(2008, 1), 840],[new Date(2008, 2), 1149],[new Date(2008, 3), 1629],[new Date(2008, 4), 1649],[new Date(2008, 5), 987],[new Date(2008, 6), 1304],[new Date(2008, 7), 1047],[new Date(2008, 8), 964],[new Date(2008, 9), 1084],[new Date(2008, 10), 828],[new Date(2008, 11), 437],[new Date(2009, 0), 1202],[new Date(2009, 1), 1353],[new Date(2009, 2), 1141],[new Date(2009, 3), 896],[new Date(2009, 4), 855],[new Date(2009, 5), 796],[new Date(2009, 6), 827],[new Date(2009, 7), 789],[new Date(2009, 8), 719],[new Date(2009, 9), 618],[new Date(2009, 10), 720],[new Date(2009, 11), 1045],[new Date(2010, 0), 596],[new Date(2010, 1), 885],[new Date(2010, 2), 693],[new Date(2010, 3), 476],[new Date(2010, 4), 691],[new Date(2010, 5), 823],[new Date(2010, 6), 1129],[new Date(2010, 7), 1038],[new Date(2010, 8), 978],[new Date(2010, 9), 1105],[new Date(2010, 10), 1307],[new Date(2010, 11), 1168],[new Date(2011, 0), 1493],[new Date(2011, 1), 1855],[new Date(2011, 2), 1736],[new Date(2011, 3), 1627],[new Date(2011, 4), 1395],[new Date(2011, 5), 1568],[new Date(2011, 6), 1350],[new Date(2011, 7), 1619],[new Date(2011, 8), 1638],[new Date(2011, 9), 1621],[new Date(2011, 10), 2096],[new Date(2011, 11), 1855],[new Date(2012, 0), 1710],[new Date(2012, 1), 1600],[new Date(2012, 2), 1799],[new Date(2012, 3), 1688],[new Date(2012, 4), 1760],[new Date(2012, 5), 1613],[new Date(2012, 6), 1813],[new Date(2012, 7), 1357],[new Date(2012, 8), 1401],[new Date(2012, 9), 1689],[new Date(2012, 10), 1731],[new Date(2012, 11), 1336],[new Date(2013, 0), 1613],[new Date(2013, 1), 1260],[new Date(2013, 2), 409] ], 
+              [ [new Date(2007, 1), 146, '<div style="padding:5px"><b>2007-02</b><br />146 tweets</div>'],[new Date(2007, 2), 628, '<div style="padding:5px"><b>2007-03</b><br />628 tweets</div>'],[new Date(2007, 3), 725, '<div style="padding:5px"><b>2007-04</b><br />725 tweets</div>'],[new Date(2007, 4), 714, '<div style="padding:5px"><b>2007-05</b><br />714 tweets</div>'],[new Date(2007, 5), 825, '<div style="padding:5px"><b>2007-06</b><br />825 tweets</div>'],[new Date(2007, 6), 709, '<div style="padding:5px"><b>2007-07</b><br />709 tweets</div>'],[new Date(2007, 7), 813, '<div style="padding:5px"><b>2007-08</b><br />813 tweets</div>'],[new Date(2007, 8), 998, '<div style="padding:5px"><b>2007-09</b><br />998 tweets</div>'],[new Date(2007, 9), 928, '<div style="padding:5px"><b>2007-10</b><br />928 tweets</div>'],[new Date(2007, 10), 807, '<div style="padding:5px"><b>2007-11</b><br />807 tweets</div>'],[new Date(2007, 11), 539, '<div style="padding:5px"><b>2007-12</b><br />539 tweets</div>'],[new Date(2008, 0), 953, '<div style="padding:5px"><b>2008-01</b><br />953 tweets</div>'],[new Date(2008, 1), 840, '<div style="padding:5px"><b>2008-02</b><br />840 tweets</div>'],[new Date(2008, 2), 1149, '<div style="padding:5px"><b>2008-03</b><br />1149 tweets</div>'],[new Date(2008, 3), 1629, '<div style="padding:5px"><b>2008-04</b><br />1629 tweets</div>'],[new Date(2008, 4), 1649, '<div style="padding:5px"><b>2008-05</b><br />1649 tweets</div>'],[new Date(2008, 5), 987, '<div style="padding:5px"><b>2008-06</b><br />987 tweets</div>'],[new Date(2008, 6), 1304, '<div style="padding:5px"><b>2008-07</b><br />1304 tweets</div>'],[new Date(2008, 7), 1047, '<div style="padding:5px"><b>2008-08</b><br />1047 tweets</div>'],[new Date(2008, 8), 964, '<div style="padding:5px"><b>2008-09</b><br />964 tweets</div>'],[new Date(2008, 9), 1084, '<div style="padding:5px"><b>2008-10</b><br />1084 tweets</div>'],[new Date(2008, 10), 828, '<div style="padding:5px"><b>2008-11</b><br />828 tweets</div>'],[new Date(2008, 11), 437, '<div style="padding:5px"><b>2008-12</b><br />437 tweets</div>'],[new Date(2009, 0), 1202, '<div style="padding:5px"><b>2009-01</b><br />1202 tweets</div>'],[new Date(2009, 1), 1353, '<div style="padding:5px"><b>2009-02</b><br />1353 tweets</div>'],[new Date(2009, 2), 1141, '<div style="padding:5px"><b>2009-03</b><br />1141 tweets</div>'],[new Date(2009, 3), 896, '<div style="padding:5px"><b>2009-04</b><br />896 tweets</div>'],[new Date(2009, 4), 855, '<div style="padding:5px"><b>2009-05</b><br />855 tweets</div>'],[new Date(2009, 5), 796, '<div style="padding:5px"><b>2009-06</b><br />796 tweets</div>'],[new Date(2009, 6), 827, '<div style="padding:5px"><b>2009-07</b><br />827 tweets</div>'],[new Date(2009, 7), 789, '<div style="padding:5px"><b>2009-08</b><br />789 tweets</div>'],[new Date(2009, 8), 719, '<div style="padding:5px"><b>2009-09</b><br />719 tweets</div>'],[new Date(2009, 9), 618, '<div style="padding:5px"><b>2009-10</b><br />618 tweets</div>'],[new Date(2009, 10), 720, '<div style="padding:5px"><b>2009-11</b><br />720 tweets</div>'],[new Date(2009, 11), 1045, '<div style="padding:5px"><b>2009-12</b><br />1045 tweets</div>'],[new Date(2010, 0), 596, '<div style="padding:5px"><b>2010-01</b><br />596 tweets</div>'],[new Date(2010, 1), 885, '<div style="padding:5px"><b>2010-02</b><br />885 tweets</div>'],[new Date(2010, 2), 693, '<div style="padding:5px"><b>2010-03</b><br />693 tweets</div>'],[new Date(2010, 3), 476, '<div style="padding:5px"><b>2010-04</b><br />476 tweets</div>'],[new Date(2010, 4), 691, '<div style="padding:5px"><b>2010-05</b><br />691 tweets</div>'],[new Date(2010, 5), 823, '<div style="padding:5px"><b>2010-06</b><br />823 tweets</div>'],[new Date(2010, 6), 1129, '<div style="padding:5px"><b>2010-07</b><br />1129 tweets</div>'],[new Date(2010, 7), 1038, '<div style="padding:5px"><b>2010-08</b><br />1038 tweets</div>'],[new Date(2010, 8), 978, '<div style="padding:5px"><b>2010-09</b><br />978 tweets</div>'],[new Date(2010, 9), 1105, '<div style="padding:5px"><b>2010-10</b><br />1105 tweets</div>'],[new Date(2010, 10), 1307, '<div style="padding:5px"><b>2010-11</b><br />1307 tweets</div>'],[new Date(2010, 11), 1168, '<div style="padding:5px"><b>2010-12</b><br />1168 tweets</div>'],[new Date(2011, 0), 1493, '<div style="padding:5px"><b>2011-01</b><br />1493 tweets</div>'],[new Date(2011, 1), 1855, '<div style="padding:5px"><b>2011-02</b><br />1855 tweets</div>'],[new Date(2011, 2), 1736, '<div style="padding:5px"><b>2011-03</b><br />1736 tweets</div>'],[new Date(2011, 3), 1627, '<div style="padding:5px"><b>2011-04</b><br />1627 tweets</div>'],[new Date(2011, 4), 1395, '<div style="padding:5px"><b>2011-05</b><br />1395 tweets</div>'],[new Date(2011, 5), 1568, '<div style="padding:5px"><b>2011-06</b><br />1568 tweets</div>'],[new Date(2011, 6), 1350, '<div style="padding:5px"><b>2011-07</b><br />1350 tweets</div>'],[new Date(2011, 7), 1619, '<div style="padding:5px"><b>2011-08</b><br />1619 tweets</div>'],[new Date(2011, 8), 1638, '<div style="padding:5px"><b>2011-09</b><br />1638 tweets</div>'],[new Date(2011, 9), 1621, '<div style="padding:5px"><b>2011-10</b><br />1621 tweets</div>'],[new Date(2011, 10), 2096, '<div style="padding:5px"><b>2011-11</b><br />2096 tweets</div>'],[new Date(2011, 11), 1855, '<div style="padding:5px"><b>2011-12</b><br />1855 tweets</div>'],[new Date(2012, 0), 1710, '<div style="padding:5px"><b>2012-01</b><br />1710 tweets</div>'],[new Date(2012, 1), 1600, '<div style="padding:5px"><b>2012-02</b><br />1600 tweets</div>'],[new Date(2012, 2), 1799, '<div style="padding:5px"><b>2012-03</b><br />1799 tweets</div>'],[new Date(2012, 3), 1688, '<div style="padding:5px"><b>2012-04</b><br />1688 tweets</div>'],[new Date(2012, 4), 1760, '<div style="padding:5px"><b>2012-05</b><br />1760 tweets</div>'],[new Date(2012, 5), 1613, '<div style="padding:5px"><b>2012-06</b><br />1613 tweets</div>'],[new Date(2012, 6), 1813, '<div style="padding:5px"><b>2012-07</b><br />1813 tweets</div>'],[new Date(2012, 7), 1357, '<div style="padding:5px"><b>2012-08</b><br />1357 tweets</div>'],[new Date(2012, 8), 1401, '<div style="padding:5px"><b>2012-09</b><br />1401 tweets</div>'],[new Date(2012, 9), 1689, '<div style="padding:5px"><b>2012-10</b><br />1689 tweets</div>'],[new Date(2012, 10), 1731, '<div style="padding:5px"><b>2012-11</b><br />1731 tweets</div>'],[new Date(2012, 11), 1336, '<div style="padding:5px"><b>2012-12</b><br />1336 tweets</div>'],[new Date(2013, 0), 1613, '<div style="padding:5px"><b>2013-01</b><br />1613 tweets</div>'],[new Date(2013, 1), 1260, '<div style="padding:5px"><b>2013-02</b><br />1260 tweets</div>'],[new Date(2013, 2), 822, '<div style="padding:5px"><b>2013-03</b><br />822 tweets</div>'] ], 
               new Date(2007,0,15), 
               new Date(2013,2,15)
           );
 
           draw_by_dow(
-              [ ['Sun', 7511],['Mon', 12792],['Tue', 13727],['Wed', 14670],['Thu', 14501],['Fri', 14348],['Sat', 7636] ],
+              [ ['Sun', 7533, '<div style="padding:5px"><b>Sun</b><br />7533 tweets</div>'],['Mon', 12852, '<div style="padding:5px"><b>Mon</b><br />12852 tweets</div>'],['Tue', 13796, '<div style="padding:5px"><b>Tue</b><br />13796 tweets</div>'],['Wed', 14763, '<div style="padding:5px"><b>Wed</b><br />14763 tweets</div>'],['Thu', 14596, '<div style="padding:5px"><b>Thu</b><br />14596 tweets</div>'],['Fri', 14385, '<div style="padding:5px"><b>Fri</b><br />14385 tweets</div>'],['Sat', 7673, '<div style="padding:5px"><b>Sat</b><br />7673 tweets</div>'] ],
               "Tweets by Day of Week (all time)",
               "by_dow_alltime"
           );
           draw_by_dow(
-              [ ['Sun', 152],['Mon', 238],['Tue', 197],['Wed', 234],['Thu', 211],['Fri', 217],['Sat', 63] ],
+              [ ['Sun', 126, '<div style="padding:5px"><b>Sun</b><br />126 tweets</div>'],['Mon', 176, '<div style="padding:5px"><b>Mon</b><br />176 tweets</div>'],['Tue', 162, '<div style="padding:5px"><b>Tue</b><br />162 tweets</div>'],['Wed', 278, '<div style="padding:5px"><b>Wed</b><br />278 tweets</div>'],['Thu', 261, '<div style="padding:5px"><b>Thu</b><br />261 tweets</div>'],['Fri', 200, '<div style="padding:5px"><b>Fri</b><br />200 tweets</div>'],['Sat', 79, '<div style="padding:5px"><b>Sat</b><br />79 tweets</div>'] ],
               "Tweets by Day of Week (last 30 days)",
               "by_dow_last30"
           );
 
           draw_by_hour(
-              [ [0, 7723],[1, 6997],[2, 4692],[3, 1840],[4, 382],[5, 77],[6, 73],[7, 284],[8, 1437],[9, 2879],[10, 4257],[11, 3762],[12, 4151],[13, 4400],[14, 3562],[15, 3300],[16, 3087],[17, 3556],[18, 2588],[19, 3385],[20, 4725],[21, 5375],[22, 6016],[23, 6637] ],
+              [ [0, 7757, '<div style="padding:5px"><b>Hour 0</b><br />7757 tweets</div>'],[1, 7043, '<div style="padding:5px"><b>Hour 1</b><br />7043 tweets</div>'],[2, 4713, '<div style="padding:5px"><b>Hour 2</b><br />4713 tweets</div>'],[3, 1842, '<div style="padding:5px"><b>Hour 3</b><br />1842 tweets</div>'],[4, 382, '<div style="padding:5px"><b>Hour 4</b><br />382 tweets</div>'],[5, 77, '<div style="padding:5px"><b>Hour 5</b><br />77 tweets</div>'],[6, 73, '<div style="padding:5px"><b>Hour 6</b><br />73 tweets</div>'],[7, 284, '<div style="padding:5px"><b>Hour 7</b><br />284 tweets</div>'],[8, 1443, '<div style="padding:5px"><b>Hour 8</b><br />1443 tweets</div>'],[9, 2889, '<div style="padding:5px"><b>Hour 9</b><br />2889 tweets</div>'],[10, 4277, '<div style="padding:5px"><b>Hour 10</b><br />4277 tweets</div>'],[11, 3800, '<div style="padding:5px"><b>Hour 11</b><br />3800 tweets</div>'],[12, 4185, '<div style="padding:5px"><b>Hour 12</b><br />4185 tweets</div>'],[13, 4425, '<div style="padding:5px"><b>Hour 13</b><br />4425 tweets</div>'],[14, 3574, '<div style="padding:5px"><b>Hour 14</b><br />3574 tweets</div>'],[15, 3321, '<div style="padding:5px"><b>Hour 15</b><br />3321 tweets</div>'],[16, 3099, '<div style="padding:5px"><b>Hour 16</b><br />3099 tweets</div>'],[17, 3567, '<div style="padding:5px"><b>Hour 17</b><br />3567 tweets</div>'],[18, 2597, '<div style="padding:5px"><b>Hour 18</b><br />2597 tweets</div>'],[19, 3397, '<div style="padding:5px"><b>Hour 19</b><br />3397 tweets</div>'],[20, 4764, '<div style="padding:5px"><b>Hour 20</b><br />4764 tweets</div>'],[21, 5405, '<div style="padding:5px"><b>Hour 21</b><br />5405 tweets</div>'],[22, 6036, '<div style="padding:5px"><b>Hour 22</b><br />6036 tweets</div>'],[23, 6648, '<div style="padding:5px"><b>Hour 23</b><br />6648 tweets</div>'] ],
               "Tweets by Hour (all time)",
               "by_hour_alltime"
           );
           draw_by_hour(
-              [ [0, 103],[1, 61],[2, 28],[3, 4],[4, 0],[5, 0],[6, 0],[7, 6],[8, 48],[9, 57],[10, 55],[11, 50],[12, 56],[13, 78],[14, 81],[15, 58],[16, 45],[17, 41],[18, 40],[19, 73],[20, 111],[21, 97],[22, 97],[23, 123] ],
+              [ [0, 113, '<div style="padding:5px"><b>Hour 0</b><br />113 tweets</div>'],[1, 85, '<div style="padding:5px"><b>Hour 1</b><br />85 tweets</div>'],[2, 28, '<div style="padding:5px"><b>Hour 2</b><br />28 tweets</div>'],[3, 3, '<div style="padding:5px"><b>Hour 3</b><br />3 tweets</div>'],[4, 0, '<div style="padding:5px"><b>Hour 4</b><br />0 tweets</div>'],[5, 0, '<div style="padding:5px"><b>Hour 5</b><br />0 tweets</div>'],[6, 0, '<div style="padding:5px"><b>Hour 6</b><br />0 tweets</div>'],[7, 0, '<div style="padding:5px"><b>Hour 7</b><br />0 tweets</div>'],[8, 34, '<div style="padding:5px"><b>Hour 8</b><br />34 tweets</div>'],[9, 50, '<div style="padding:5px"><b>Hour 9</b><br />50 tweets</div>'],[10, 61, '<div style="padding:5px"><b>Hour 10</b><br />61 tweets</div>'],[11, 72, '<div style="padding:5px"><b>Hour 11</b><br />72 tweets</div>'],[12, 64, '<div style="padding:5px"><b>Hour 12</b><br />64 tweets</div>'],[13, 78, '<div style="padding:5px"><b>Hour 13</b><br />78 tweets</div>'],[14, 63, '<div style="padding:5px"><b>Hour 14</b><br />63 tweets</div>'],[15, 54, '<div style="padding:5px"><b>Hour 15</b><br />54 tweets</div>'],[16, 44, '<div style="padding:5px"><b>Hour 16</b><br />44 tweets</div>'],[17, 37, '<div style="padding:5px"><b>Hour 17</b><br />37 tweets</div>'],[18, 37, '<div style="padding:5px"><b>Hour 18</b><br />37 tweets</div>'],[19, 56, '<div style="padding:5px"><b>Hour 19</b><br />56 tweets</div>'],[20, 109, '<div style="padding:5px"><b>Hour 20</b><br />109 tweets</div>'],[21, 104, '<div style="padding:5px"><b>Hour 21</b><br />104 tweets</div>'],[22, 88, '<div style="padding:5px"><b>Hour 22</b><br />88 tweets</div>'],[23, 102, '<div style="padding:5px"><b>Hour 23</b><br />102 tweets</div>'] ],
               "Tweets by Hour (last 30 days)",
               "by_hour_last30"
           );
 
           draw_by_mention(
-              [ [ '@having', 2750 ],[ '@myen', 1953 ],[ '@thebadcop', 716 ],[ '@linnetwoods', 572 ],[ '@jackalopejess', 522 ],[ '@wildfox34', 493 ],[ '@blaiddwolfe', 473 ],[ '@shusune', 422 ],[ '@tb5918', 411 ],[ '@prinplup14', 390 ] ],
+              [ [ '@having', 2764 ],[ '@myen', 1953 ],[ '@thebadcop', 716 ],[ '@linnetwoods', 572 ],[ '@jackalopejess', 525 ],[ '@wildfox34', 495 ],[ '@blaiddwolfe', 473 ],[ '@shusune', 423 ],[ '@tb5918', 413 ],[ '@prinplup14', 391 ] ],
               "Top Mentions (all time)",
               "by_mention_alltime"
           );
           draw_by_mention(
-              [ [ '@having', 40 ],[ '@anthroguy101', 16 ],[ '@cacheadvance', 16 ],[ '@rukario71', 14 ],[ '@jackalopejess', 13 ],[ '@zolfox', 13 ],[ '@pippin', 13 ],[ '@prinplup14', 12 ],[ '@spazzfox', 12 ],[ '@rav_bunneh', 11 ] ],
+              [ [ '@having', 39 ],[ '@cacheadvance', 19 ],[ '@anthroguy101', 16 ],[ '@tilton_raccoon', 15 ],[ '@pippin', 14 ],[ '@jackalopejess', 13 ],[ '@zolfox', 13 ],[ '@mikefolf', 12 ],[ '@kinielcat', 11 ],[ '@ctrlaltdog', 11 ] ],
               "Top Mentions (last 30 days)",
               "by_mention_last30"
           );
 
           draw_by_mention(
-              [ [ 'TwitVim', 38841 ],[ 'web', 12461 ],[ 'Tweetbot for Mac', 7441 ],[ 'Instantbird', 5245 ],[ 'im', 5172 ],[ 'Twitter for Mac', 4019 ],[ 'FriendFeed', 2355 ],[ 'twicca', 1953 ],[ 'txt', 1538 ],[ 'Seesmic', 1298 ] ],
+              [ [ 'TwitVim', 38855 ],[ 'web', 12461 ],[ 'Tweetbot for Mac', 7789 ],[ 'Instantbird', 5245 ],[ 'im', 5172 ],[ 'Twitter for Mac', 4019 ],[ 'FriendFeed', 2355 ],[ 'twicca', 1953 ],[ 'txt', 1551 ],[ 'Seesmic', 1298 ] ],
               "Top Clients (all time)",
               "by_source_alltime"
           );
           draw_by_mention(
-              [ [ 'Tweetbot for Mac', 1160 ],[ 'Instagram', 60 ],[ 'txt', 28 ],[ 'twicca', 19 ],[ 'Falcon Pro', 19 ],[ 'FalconPro', 17 ],[ 'TwitVim', 7 ],[ 'OS X', 1 ],[ 'Carbon for Android', 1 ] ],
+              [ [ 'Tweetbot for Mac', 1126 ],[ 'Instagram', 58 ],[ 'Falcon Pro', 32 ],[ 'txt', 30 ],[ 'TwitVim', 21 ],[ 'twicca', 7 ],[ 'FalconPro', 5 ],[ 'OS X', 3 ] ],
               "Top Clients (last 30 days)",
               "by_source_last30"
           );
@@ -194,11 +216,11 @@
 	  "use strict";
 
           cloud_by_words(
-              [ {text: "goodnight", weight: 9196 },{text: "good", weight: 7114 },{text: "it's", weight: 5070 },{text: "morning", weight: 4139 },{text: "just", weight: 4084 },{text: "i'm", weight: 3744 },{text: "having", weight: 3525 },{text: "don't", weight: 2783 },{text: "too", weight: 2665 },{text: "that's", weight: 2465 },{text: "still", weight: 2284 },{text: "only", weight: 2265 },{text: "because", weight: 2139 },{text: "twitter", weight: 2134 },{text: "livejournal", weight: 2125 },{text: "new", weight: 2114 },{text: "well", weight: 2022 },{text: "got", weight: 1974 },{text: "myen", weight: 1954 },{text: "why", weight: 1890 },{text: "back", weight: 1852 },{text: "think", weight: 1825 },{text: "night", weight: 1695 },{text: "i've", weight: 1668 },{text: "i'll", weight: 1638 },{text: "those", weight: 1579 },{text: "home", weight: 1555 },{text: "going", weight: 1533 },{text: "after", weight: 1509 },{text: "photos", weight: 1503 },{text: "work", weight: 1409 },{text: "yes", weight: 1376 },{text: "already", weight: 1333 },{text: "didn't", weight: 1333 },{text: "logging", weight: 1315 },{text: "okay", weight: 1300 },{text: "gas", weight: 1256 },{text: "also", weight: 1254 },{text: "even", weight: 1252 },{text: "postcrossing", weight: 1248 },{text: "before", weight: 1236 },{text: "google", weight: 1165 },{text: "twitpic", weight: 1156 },{text: "should", weight: 1151 },{text: "know", weight: 1140 },{text: "geocaches", weight: 1138 },{text: "much", weight: 1133 },{text: "there's", weight: 1112 },{text: "off", weight: 1102 },{text: "catching", weight: 1097 },{text: "posting", weight: 1081 },{text: "can't", weight: 1066 },{text: "geocaching", weight: 1061 },{text: "prices", weight: 1055 },{text: "last", weight: 1050 },{text: "dinner", weight: 1033 },{text: "any", weight: 1022 },{text: "never", weight: 1012 },{text: "flickr", weight: 1010 },{text: "bit", weight: 995 },{text: "again", weight: 985 },{text: "chicken", weight: 980 },{text: "found", weight: 978 },{text: "need", weight: 958 },{text: "doesn't", weight: 956 },{text: "today", weight: 947 },{text: "haven't", weight: 943 },{text: "guess", weight: 940 },{text: "probably", weight: 939 },{text: "another", weight: 936 },{text: "free", weight: 933 },{text: "over", weight: 933 },{text: "maybe", weight: 926 },{text: "evening", weight: 908 },{text: "yet", weight: 903 },{text: "really", weight: 899 },{text: "few", weight: 896 },{text: "using", weight: 895 },{text: "doing", weight: 887 },{text: "george", weight: 885 },{text: "card", weight: 883 },{text: "yeah", weight: 876 },{text: "though", weight: 865 },{text: "wonder", weight: 864 },{text: "where's", weight: 860 },{text: "something", weight: 841 },{text: "actually", weight: 840 },{text: "breakfast", weight: 834 },{text: "getting", weight: 829 },{text: "lot", weight: 825 },{text: "while", weight: 820 },{text: "birthday", weight: 802 },{text: "geocache", weight: 796 },{text: "here", weight: 774 },{text: "phone", weight: 769 },{text: "sure", weight: 769 },{text: "year", weight: 764 },{text: "writing", weight: 757 },{text: "happy", weight: 752 },{text: "since", weight: 749 } ],
+              [ {text: "goodnight", weight: 9239 },{text: "good", weight: 7146 },{text: "it's", weight: 5103 },{text: "morning", weight: 4160 },{text: "just", weight: 4122 },{text: "i'm", weight: 3762 },{text: "having", weight: 3543 },{text: "don't", weight: 2794 },{text: "too", weight: 2681 },{text: "that's", weight: 2481 },{text: "still", weight: 2303 },{text: "only", weight: 2281 },{text: "because", weight: 2158 },{text: "twitter", weight: 2147 },{text: "livejournal", weight: 2126 },{text: "new", weight: 2122 },{text: "well", weight: 2033 },{text: "got", weight: 1984 },{text: "myen", weight: 1954 },{text: "why", weight: 1900 },{text: "back", weight: 1859 },{text: "think", weight: 1838 },{text: "night", weight: 1703 },{text: "i've", weight: 1680 },{text: "i'll", weight: 1659 },{text: "those", weight: 1585 },{text: "home", weight: 1562 },{text: "going", weight: 1538 },{text: "after", weight: 1517 },{text: "photos", weight: 1504 },{text: "work", weight: 1421 },{text: "yes", weight: 1384 },{text: "already", weight: 1344 },{text: "didn't", weight: 1342 },{text: "logging", weight: 1315 },{text: "okay", weight: 1312 },{text: "even", weight: 1265 },{text: "also", weight: 1261 },{text: "gas", weight: 1257 },{text: "postcrossing", weight: 1248 },{text: "before", weight: 1245 },{text: "google", weight: 1188 },{text: "should", weight: 1160 },{text: "twitpic", weight: 1156 },{text: "know", weight: 1147 },{text: "geocaches", weight: 1146 },{text: "much", weight: 1136 },{text: "there's", weight: 1123 },{text: "off", weight: 1105 },{text: "catching", weight: 1097 },{text: "posting", weight: 1082 },{text: "can't", weight: 1072 },{text: "geocaching", weight: 1064 },{text: "last", weight: 1057 },{text: "prices", weight: 1056 },{text: "dinner", weight: 1038 },{text: "any", weight: 1032 },{text: "never", weight: 1017 },{text: "flickr", weight: 1014 },{text: "bit", weight: 998 },{text: "again", weight: 988 },{text: "chicken", weight: 984 },{text: "found", weight: 979 },{text: "need", weight: 966 },{text: "doesn't", weight: 961 },{text: "guess", weight: 954 },{text: "today", weight: 950 },{text: "probably", weight: 949 },{text: "haven't", weight: 947 },{text: "another", weight: 946 },{text: "free", weight: 938 },{text: "over", weight: 934 },{text: "maybe", weight: 928 },{text: "evening", weight: 917 },{text: "yet", weight: 909 },{text: "few", weight: 907 },{text: "really", weight: 905 },{text: "using", weight: 900 },{text: "doing", weight: 890 },{text: "george", weight: 885 },{text: "yeah", weight: 884 },{text: "card", weight: 884 },{text: "though", weight: 871 },{text: "wonder", weight: 870 },{text: "where's", weight: 861 },{text: "something", weight: 848 },{text: "actually", weight: 845 },{text: "breakfast", weight: 834 },{text: "lot", weight: 833 },{text: "getting", weight: 831 },{text: "while", weight: 823 },{text: "birthday", weight: 810 },{text: "geocache", weight: 799 },{text: "here", weight: 779 },{text: "phone", weight: 774 },{text: "sure", weight: 772 },{text: "year", weight: 767 },{text: "writing", weight: 758 },{text: "happy", weight: 758 },{text: "since", weight: 755 } ],
               "by_words_alltime"
           );
           cloud_by_words(
-              [ {text: "goodnight", weight: 162 },{text: "good", weight: 128 },{text: "it's", weight: 107 },{text: "just", weight: 94 },{text: "morning", weight: 93 },{text: "too", weight: 62 },{text: "i'm", weight: 58 },{text: "that's", weight: 55 },{text: "having", weight: 48 },{text: "those", weight: 40 },{text: "don't", weight: 40 },{text: "still", weight: 38 },{text: "well", weight: 37 },{text: "even", weight: 35 },{text: "because", weight: 34 },{text: "think", weight: 31 },{text: "only", weight: 31 },{text: "yes", weight: 30 },{text: "twitter", weight: 29 },{text: "why", weight: 29 },{text: "got", weight: 29 },{text: "probably", weight: 29 },{text: "i've", weight: 28 },{text: "after", weight: 28 },{text: "didn't", weight: 24 },{text: "new", weight: 23 },{text: "any", weight: 23 },{text: "dinner", weight: 23 },{text: "going", weight: 23 },{text: "hardee's", weight: 23 },{text: "actually", weight: 23 },{text: "back", weight: 22 },{text: "chocolate", weight: 22 },{text: "okay", weight: 22 },{text: "coffee", weight: 22 },{text: "work", weight: 21 },{text: "last", weight: 21 },{text: "guess", weight: 21 },{text: "birthday", weight: 21 },{text: "happy", weight: 21 },{text: "though", weight: 20 },{text: "milk", weight: 20 },{text: "either", weight: 19 },{text: "also", weight: 19 },{text: "evening", weight: 19 },{text: "skim", weight: 19 },{text: "bacon", weight: 18 },{text: "really", weight: 18 },{text: "app", weight: 18 },{text: "need", weight: 18 },{text: "i'll", weight: 18 },{text: "much", weight: 18 },{text: "never", weight: 18 },{text: "free", weight: 18 },{text: "looks", weight: 18 },{text: "maybe", weight: 17 },{text: "geocaches", weight: 17 },{text: "oranges", weight: 17 },{text: "pizza", weight: 17 },{text: "doing", weight: 17 },{text: "wonder", weight: 17 },{text: "bit", weight: 17 },{text: "store", weight: 17 },{text: "truffle", weight: 17 },{text: "houtte", weight: 16 },{text: "lot", weight: 16 },{text: "should", weight: 16 },{text: "since", weight: 16 },{text: "raspberry", weight: 16 },{text: "van", weight: 16 },{text: "home", weight: 16 },{text: "haven't", weight: 16 },{text: "here", weight: 16 },{text: "sure", weight: 16 },{text: "ohbother", weight: 16 },{text: "anthroguy101", weight: 16 },{text: "2013", weight: 16 },{text: "doesn't", weight: 16 },{text: "cacheadvance", weight: 16 },{text: "there's", weight: 16 },{text: "over", weight: 16 },{text: "friday's", weight: 16 },{text: "year", weight: 15 },{text: "using", weight: 15 },{text: "gqotd", weight: 15 },{text: "coupon", weight: 15 },{text: "chicken", weight: 15 },{text: "while", weight: 15 },{text: "already", weight: 15 },{text: "folks", weight: 15 },{text: "used", weight: 15 },{text: "every", weight: 15 },{text: "very", weight: 15 },{text: "night", weight: 14 },{text: "rukario71", weight: 14 },{text: "can't", weight: 14 },{text: "geocaching", weight: 14 },{text: "today", weight: 14 },{text: "better", weight: 14 },{text: "another", weight: 14 } ],
+              [ {text: "goodnight", weight: 160 },{text: "good", weight: 114 },{text: "just", weight: 106 },{text: "it's", weight: 98 },{text: "morning", weight: 83 },{text: "too", weight: 55 },{text: "i'm", weight: 55 },{text: "that's", weight: 52 },{text: "having", weight: 51 },{text: "don't", weight: 39 },{text: "still", weight: 39 },{text: "because", weight: 37 },{text: "think", weight: 37 },{text: "those", weight: 37 },{text: "only", weight: 36 },{text: "well", weight: 35 },{text: "twitter", weight: 32 },{text: "i'll", weight: 32 },{text: "even", weight: 32 },{text: "why", weight: 31 },{text: "google", weight: 30 },{text: "got", weight: 30 },{text: "guess", weight: 30 },{text: "yes", weight: 30 },{text: "probably", weight: 29 },{text: "any", weight: 28 },{text: "i've", weight: 27 },{text: "hardee's", weight: 27 },{text: "okay", weight: 27 },{text: "evening", weight: 26 },{text: "work", weight: 26 },{text: "there's", weight: 25 },{text: "didn't", weight: 25 },{text: "coffee", weight: 23 },{text: "after", weight: 23 },{text: "new", weight: 23 },{text: "already", weight: 23 },{text: "birthday", weight: 22 },{text: "another", weight: 22 },{text: "chocolate", weight: 22 },{text: "going", weight: 22 },{text: "milk", weight: 21 },{text: "last", weight: 20 },{text: "also", weight: 20 },{text: "happy", weight: 20 },{text: "should", weight: 20 },{text: "skim", weight: 20 },{text: "since", weight: 19 },{text: "free", weight: 19 },{text: "cacheadvance", weight: 19 },{text: "really", weight: 19 },{text: "very", weight: 19 },{text: "lot", weight: 19 },{text: "geocaches", weight: 19 },{text: "used", weight: 18 },{text: "2013", weight: 18 },{text: "using", weight: 18 },{text: "need", weight: 18 },{text: "gqotd", weight: 18 },{text: "something", weight: 18 },{text: "friday's", weight: 18 },{text: "before", weight: 18 },{text: "looks", weight: 18 },{text: "home", weight: 17 },{text: "houtte", weight: 17 },{text: "van", weight: 17 },{text: "bacon", weight: 17 },{text: "raspberry", weight: 17 },{text: "actually", weight: 17 },{text: "dinner", weight: 17 },{text: "doesn't", weight: 17 },{text: "keep", weight: 17 },{text: "truffle", weight: 17 },{text: "reader", weight: 17 },{text: "wonder", weight: 17 },{text: "anthroguy101", weight: 16 },{text: "coupon", weight: 16 },{text: "here", weight: 16 },{text: "api", weight: 16 },{text: "anyway", weight: 16 },{text: "though", weight: 16 },{text: "few", weight: 16 },{text: "back", weight: 16 },{text: "yet", weight: 16 },{text: "night", weight: 16 },{text: "know", weight: 15 },{text: "again", weight: 15 },{text: "app", weight: 15 },{text: "never", weight: 15 },{text: "noticed", weight: 15 },{text: "problem", weight: 15 },{text: "store", weight: 15 },{text: "always", weight: 15 },{text: "ohbother", weight: 15 },{text: "haven't", weight: 15 },{text: "tilton_raccoon", weight: 15 },{text: "beef", weight: 14 },{text: "better", weight: 14 },{text: "pizza", weight: 14 },{text: "check", weight: 14 } ],
               "by_words_last30"
           );
       });
@@ -206,6 +228,8 @@
 </head>
 
 <body>
+  <h1>Twitter Archive Stats</h1>
+  <h2>from 2007-02-15 to 2013-03-21</h2>
   <table>
     <tr>
       <td colspan="2">
@@ -246,12 +270,28 @@
     </tr>
     <tr>
       <td>
-        <div id="by_words_alltime" style="width: 600px; height: 400px;"></div>
-        <p style="font-weight: bold; text-align: center;">Words (all time)</p>
+
+        <table>
+          <caption>Words (all time)</caption>
+          <tr>
+            <td>
+              <div id="by_words_alltime" style="width: 600px; height: 400px;"></div>
+            </td>
+          </tr>
+        </table>
+
       </td>
       <td>
-        <div id="by_words_last30" style="width: 600px; height: 400px;"></div>
-        <p style="font-weight: bold; text-align: center;">Words (last 30 days)</p>
+
+        <table>
+          <caption>Words (last 30 days)</caption>
+          <tr>
+            <td>
+              <div id="by_words_last30" style="width: 600px; height: 400px;"></div>
+            </td>
+          </tr>
+        </table>
+
       </td>
     </tr>
   </table>
